@@ -1,9 +1,40 @@
 class Game
   def initialize
+    puts "==================================================Rules=============================================================="
+      puts "1. Each player selects a mark to identify him/her in the game."
+      puts "2. When the game starts each player selects a position to mark. Positions range from 1 through 9 as indicated below"
+      puts "2. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game"
+      puts "3. When all the spaces on the board are exausted, the game draws"
+      puts "====================================================================================================================="
+
+    @board = Board.new
+      settings
+      @board.display
+      print "\nPress Enter to Start"
+      gets.chomp
   end
 
   def start
+    # Use this method to start the game
+    while true
+      @player_1.play
+      @board.display
+      if check_win(@player_1.mark)
+        puts "Player 1(#{@player_1.mark}) won the game!"
+        return
+      end
+      break if @board.full?
+      @player_2.play
+      @board.display
+      if check_win(@player_2.mark)
+        puts "Player 2(#{@player_2.mark}) won the game!"
+        return
+      end
+      break if @board.full?
+    end
+    puts "No one won. The Game is a draw"
   end
+
 
   @private
   class Board
