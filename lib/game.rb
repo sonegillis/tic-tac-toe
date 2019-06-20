@@ -40,15 +40,46 @@ class Game
 
   @private
   class Board
-    def initialize
-    end
-
-    def display
-    end
-
-    def full?
-    end
-  end
+    class Board
+      attr_accessor :pattern
+      attr_reader :available
+      def initialize
+        @pattern = [
+                    ["*", "*", "*"],
+                    ["*", "*", "*"],
+                    ["*", "*", "*"]
+                  ]
+        @available = (1..9).to_a
+      end
+      
+      def display
+        # Display the present board in a nicely formatted manner
+        print("\n\n")
+  
+        puts "        SELECT                                             BOARD\n\n"
+  
+        count = 0
+        @pattern.each_with_index{|row, i|
+          if @pattern[i][0] == "*" then print "#{i+count+1}    |    " else print "     |    " end
+          if @pattern[i][1] == "*" then print "#{i+count+2}    |    " else print "     |    " end
+          if @pattern[i][2] == "*" then print "#{i+count+3}" else print " " end
+          print "                              "
+          count += 2
+          row.each_with_index{|col, j|
+            print col
+            print "    |    " if j < 2
+          }
+          puts "\n-----+---------+--------                        --------+---------+--------" if i < 2
+        }
+          puts "\n"
+      end
+  
+      def full?
+        # Use this to determine if all the positions have been played
+        @available.count == 0
+      end
+  
+    end  
 
   class Player
     def initialize
