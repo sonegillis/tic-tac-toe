@@ -1,3 +1,5 @@
+require 'colorize'
+
 class Game
   def initialize
     puts "==================================================Rules=============================================================="
@@ -60,5 +62,30 @@ class Game
   end
 
   def check_win(mark)
+    wincond=[
+              [[0,0],[0,1],[0,2]],
+              [[1,0],[1,1],[1,2]],
+              [[2,0],[2,1],[2,2]],
+              [[0,0],[1,0],[2,0]],
+              [[0,1],[1,1],[2,1]],
+              [[0,2],[1,2],[2,2]],
+              [[0,0],[1,1],[2,2]],
+              [[0,2],[1,1],[2,0]]
+            ]
+    flag = true
+    wincond.each {|arr|
+      arr.each{|subarr|
+        x = subarr[0]
+        y = subarr[1]
+        if @board.pattern[x][y] != mark
+          flag = false
+        end
+      }
+      if flag
+        return true;
+      end
+      flag = true
+    }
+    return false
   end
 end
