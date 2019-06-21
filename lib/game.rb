@@ -103,6 +103,12 @@ class Game
   end
 
   def settings
+    print "Enter " + "Player 1".blue + " Game mark: "
+    mark_1 = gets.chomp.blue
+    print "Enter " + "Player 2".green + " Game mark: "
+    mark_2 = gets.chomp.green
+    @player_1 = Player.new("Player 1".blue, mark_1, @board)
+    @player_2 = Player.new("Player 2".green, mark_2, @board)
   end
 
   def check_win(mark)
