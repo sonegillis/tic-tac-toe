@@ -51,13 +51,13 @@ class Game
                   ]
         @available = (1..9).to_a
       end
-      
+
       def display
         # Display the present board in a nicely formatted manner
         print("\n\n")
-  
+
         puts "        SELECT                                             BOARD\n\n"
-  
+
         count = 0
         @pattern.each_with_index{|row, i|
           if @pattern[i][0] == "*" then print "#{i+count+1}    |    " else print "     |    " end
@@ -73,19 +73,32 @@ class Game
         }
           puts "\n"
       end
-  
+
       def full?
         # Use this to determine if all the positions have been played
         @available.count == 0
       end
-  
-    end  
+
+    end
 
   class Player
-    def initialize
+    attr_reader :mark
+    def initialize(name, mark, board)
+      @name = name
+      @mark = mark
+      @board = board
     end
 
     def play
+      print "#{@name} Play: "
+      position = gets.chomp.to_i
+      while !@board.available.include?(position)
+        puts "Sorry!! You cannot place a mark at #{position}. Position #{position} is either marked or not available"
+        print "#{@name} Play Again: "
+        position = gets.chomp.to_i
+      end
+      @board.pattern[(position-1)/3][(position-1)%3] = @mark
+      @board.available.delete(position)
     end
   end
 
