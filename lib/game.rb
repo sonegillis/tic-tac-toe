@@ -23,6 +23,7 @@ class Player
     @name = name
     @mark = mark
     @board = board
+
   end
 
   def play(position)
